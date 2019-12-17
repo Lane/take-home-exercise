@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  line-height: 1.5;
+}
+.page {
+  max-width: 36em;
+  margin:3em auto 1em;
+  padding: 1em;
+}
+.section {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.heading {
+  font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 0.5em;
+}
+.heading.heading--1 {
+  font-size: 2em;
+}
+.heading.heading--2 {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.heading.heading--3 {
+  font-size: 1.25em;
+  text-transform: uppercase;
+}
+.paragraph {
+  margin: 0 0 0.5em 0;
+}
+
+/** Button */
+.button {
+  display: inline-block;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  margin: 0.5em 0 0 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #069;
+  border: none;
+  cursor:pointer;
+}
+  /** State: Hovered */
+  .button:hover {
+    background: #28b;
+  }
+  /** State: Disabled */
+  .button.button--disabled {
+    background: #999;
+  }
+  /** State: Warning */
+  .button.button--warning {
+    background: #c33;
+  }
+
+
+/** Selection Item */
+.selection-item {
+  display: inline-block;
+  width: 10em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+  /** Hovered State */
+  .selection-item:hover {
+    box-shadow: 0 0 0 4px rgba(175, 175, 175, 0.5);
+  }
+  /** Selected State */
+  .selection-item.selection-item--selected {
+    border-color: #6c6;
+    box-shadow: 0 0 0 4px rgba(46, 200, 46, 0.5);
+  }
+  /** Selection Item Image */
+  .selection-item__image {
+    max-width: 100%;
+    display: block;
+  }
+  /** Selection Item Label */
+  .selection-item__label {
+    margin:0;
+    padding: 0.5em;
+    background: #fff;
+  }
+
+
+/** Selection Area */
+.selection-area {
+  padding: 1em;
+  background: #f4f4f4;
+}
+.selection-area .results {
+  display: none;
+  margin-bottom: 0;
+}
+  /** Success State */
+  .selection-area.selection-area--success {
+    background: #efe;
+  }
+  .selection-area.selection-area--success .button {
+    display: none;
+  }
+  .selection-area.selection-area--success .results {
+    display: block;
+    color: #060;
+  }
+  /** Incorrect State */
+  .selection-area.selection-area--incorrect {
+    background: #fee;
+  }
+  .selection-area.selection-area--incorrect .results {
+    display: block;
+    color: #600;
+  }
