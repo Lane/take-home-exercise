@@ -6,16 +6,18 @@ In this assignment you will build an interactive learning exercise where a stude
 
 
 # Instructions
+
 1. Fork this repository and create a new branch for your development work
 1. Create your implementation following the [Specification](#Specification) below
+1. Add instructions on how to run your implementation to the [Getting Started](#Getting-Started) section.
 1. In the [follow up questions](#Follow-Up-Questions) section below, respond inline to each of the questions.
 1. Commit your implementation and answers to your branch, then [create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) for review on the original repository.
+
 
 **Guidelines:**
 - Do not spend longer than one hour on your implementation, a perfect implementation is not required or expected. Please move on to the [follow up questions](#Follow-Up-Questions) after one hour.
 - You may use any libraries or frameworks of your choosing (e.g. React, Vue, Angular, Web Components, etc.)
 - The visual design of the components does not need to be exactly as seen in the prototype video. Feel free to use an existing component design framework (e.g. Material Design, Bootstrap, etc.) or design your own.
-
 
 
 # Specification
@@ -33,6 +35,7 @@ Using these files as a starting point, you will build the following functionalit
 
 
 ## Exercise Data
+
 The species selections to show should be loaded using an HTTP get request to the following URL: 
 
 - `https://6gw3kytg07.execute-api.us-east-1.amazonaws.com/dev/items`
@@ -50,7 +53,9 @@ the JSON data contains an array of "Animal" objects, structured as follows:
 ]
 ```
 
+
 ## Answer Checking
+
 A server-side answer checking service is available at the following endpoint:
   - `https://6gw3kytg07.execute-api.us-east-1.amazonaws.com/dev/amphibians`
 
@@ -77,16 +82,67 @@ To evaluate a students answer, create a POST request where the body contains a J
 }
 ```
 
+
+# Getting started
+
+To run this project you need Node / npm installed. Open your terminal and navigate to the directory, then run:
+
+```
+npm install
+```
+
+After the install completes, run:
+
+```
+npm run start
+```
+
+this will start a local version of the project at http://localhost:5000/
+
+
 # Follow Up Questions
 
-  1. Describe which task you found most difficult in the implementation, and why.
-  1. What lead you to choose these libraries or frameworks you used in your implementation?
-  1. If there were no time restrictions for this exercise, what improvements would you make in the following areas:
-      - Implementation
-      - User Experience
-      - Accessibility
-  1. If you were asked to refactor this exercise so it could be repurposed for any type of species, not just "Amphibians", what changes would you make?
-  1. Assume you are provided with a unique identifier for each student that completes the exercise.  You are tasked with storing user answers in persistent storage so their answers are loaded when they return to the exercise.  Give a high level overview of how you would implement this feature.
+  **1. Describe which task you found most difficult in the implementation, and why.**
+  
+  I found the answer checking to be the most difficult.  Initially when I was sending the POST request to the answer service endpoint I was getting CORS errors.  I had to adjust the jQuery POST request to include `crossDomain: true` in order to get it to work.
+
+**2. What lead you to choose these libraries or frameworks you used in your implementation?**
+
+This is a very simple app with limited time for implementation, so I decided jQuery would be suitable.  I decided this because it doesn't require any complex tooling or setup like some other front end libraries allowing me to quickly get started.  Also, only having the single dependency keeps the app lightweight and well optimized.
+
+**3. If there were no time restrictions for this exercise, what improvements would you make in the following areas:**
+  - Implementation
+    
+    If I had more time I would change the implementation to utilize React using `create-react-app`.  This would add in the necessary tooling to use features like ES6, production builds, unit testing, hot reload, and component based architecture.  I also would have added error handling to handle if the data was unable to load or the answer service was unavailable.
+
+  - User Experience
+
+    Many improvements could be made for the user experience of this exercise. A few improvements include:
+      
+      - loading placeholder when the species and images are being loaded to indicate to the user the exercise is not yet ready, but will be soon.
+      - adding helpful hints on incorrect answers to help users understand why they're answer is wrong.  For example, "Incorrect, the Komodo Dragon is not an amphibian because it has scales.  Amphibians do not have scales."
+      - providing the answer message in a dialog window instead of below the selection area.  This way the status of their answer is presented front and center and does not risk being lost if it is not fully scrolled into view.
+
+  - Accessibility
+
+    To improve accessibility I would:
+    
+    - add a visual indicator, like a check mark, to items that are selected instead of relying on the colored border alone.  Color should not be the only way to signify important information.
+    - refactor to use `<input type="checkbox">` and `<label>` for each of the selectable options so a screen reader will accurately identify the controls.  This will also allow keyboard operation of the app because users would be able to tab through the options and activate / deactivate with spacebar.
+    - Use semantic HTML elements in the HTML (e.g. using proper `<h1>`, `<h2>` tags for headings, using `<main>` for main content area).  This would allow users with screen readers or other assistive technologies to easily jump to the areas they are interested in.
+      
+**4. If you were asked to refactor this exercise so it could be repurposed for any type of species, not just "Amphibians", what changes would you make?**
+
+To refactor this to be a reusable exercise for other species I would switch to a component based library like React.  I would create components for `SelectItem`, `SelectionArea`, and `IdentifyExercise`.  The `IdentifyExercise` component would accept attributes for title, instructions, data endpoint, and answer checking endpoint.  This would allow an exercise creator to specify all of the required options and answering criteria to build their own exercise.
+
+**5. Assume you are provided with a unique identifier for each student that completes the exercise.  You are tasked with storing user answers in persistent storage so their answers are loaded when they return to the exercise.  Give a high level overview of how you would implement this feature.**
+
+In order to implement this feature I would:
+  - Create a hosted database instance, my preference would be PostgreSQL with AWS RDS. The database would only need a single table with two columns (id, answer).
+  - Create some server-side node functions for loading answers and saving serialized answers to the database, then deploy that to an AWS endpoint using Serverless.
+  - On the front end when the exercise loads I would send a GET request to the endpoint to retrieve the user's answer (if any).  If there is an answer, I would restore the state in the user interface.
+  - When the user submits an answer, I would send a POST request to the save answer endpoint and have it save a serialized version of the answer JSON along with the user identifier.
+
 
 # Evaluation Criteria
 

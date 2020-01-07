@@ -1,0 +1,20 @@
+{
+  "name": "takehome",
+  "version": "1.0.0",
+  "description": "take home answer",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lane/take-home-exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lane/take-home-exercise/issues"
+  },
+  "homepage": "https://github.com/Lane/take-home-exercise#readme"
+}

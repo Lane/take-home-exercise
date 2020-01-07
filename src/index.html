@@ -8,6 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:300,400,500,700&display=swap" rel="stylesheet"> 
   <link href="css/main.css" type="text/css" rel="stylesheet"> 
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,6 +34,102 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function() {
+
+      var dataEndpoint = "https://6gw3kytg07.execute-api.us-east-1.amazonaws.com/dev/items";
+      var answerEndpoint = "https://6gw3kytg07.execute-api.us-east-1.amazonaws.com/dev/amphibians";
+      var checkAnswerButton = $('#submit');
+      var selectionAreaContainer = $('.selection-area');
+      var selectionItemsContainer = $('.selection-items');
+      var resultsContainer = $('.results');
+      var exerciseComplete = false;
+
+      function loadSelectionItems() {
+        $.get(dataEndpoint, function( data ) {
+          data.forEach(function(item) {
+            selectionItemsContainer.append(createSelectionItem(item))
+          });
+        });
+      }
+
+      function getSelectedItems() {
+        return $('.selection-item--selected');
+      }
+
+      function getSelectedIds() {
+        var selected = getSelectedItems();
+        var selectedIds = []
+        selected.each(function(i, el) {
+          selectedIds.push($(el).attr('id'))
+        })
+        return selectedIds;
+      }
+
+      function handleSelection(e) {
+        if (exerciseComplete) { return }
+        $(this).toggleClass('selection-item--selected');
+        if (getSelectedItems().length === 0) {
+          checkAnswerButton.addClass('button--disabled')
+        } else {
+          checkAnswerButton.removeClass('button--disabled')
+        }
+        selectionAreaContainer.removeClass('selection-area--incorrect');
+      }
+
+      function handleCorrectAnswer() {
+        selectionAreaContainer.addClass('selection-area--success');
+        exerciseComplete = true;
+        resultsContainer.text('Correct!')
+      }
+
+      function handleIncorrectAnswer(result) {
+        var resultString = '';
+        if (result.incorrect.length) {
+          resultString += `You have ${result.incorrect.length} selections that are not amphibians. `
+        }
+        if (result.missing > 0) {
+          resultString += `You are missing ${result.missing} amphibians. `
+        }
+        resultString += `Try again.`;
+        selectionAreaContainer.addClass('selection-area--incorrect');
+        resultsContainer.text(resultString)
+      }
+
+      function createSelectionItem(item) {
+        return $(`<div id="${item.id}" class="selection-item" />`)
+          .html(`
+            <img class="selection-item__image" src="${item.thumbnail}" />
+            <p class="selection-item__label">${item.label}</p>
+          `)
+          .on('click', handleSelection)
+      }
+
+      function checkAnswer() {
+        $.ajax({
+          url: answerEndpoint,
+          type: "POST",
+          crossDomain: true,
+          data: JSON.stringify({ answer: getSelectedIds() }),
+          dataType: "json",
+          success: function (response) {
+            console.log(response);
+            response.success ? 
+              handleCorrectAnswer() : 
+              handleIncorrectAnswer(response)
+          },
+          error: function (xhr, status) {
+            console.log("error");
+          }
+        });
+      }
+
+      loadSelectionItems();
+      checkAnswerButton.on('click', checkAnswer);
+    })
+  </script>
+
 </body>
 
 </html>

@@ -78,6 +78,10 @@ html {
     border-color: #6c6;
     box-shadow: 0 0 0 4px rgba(46, 200, 46, 0.5);
   }
+  /** Incorrect State */
+  .selection-item.selection-item--incorrect {
+    box-shadow: 0 0 0 4px rgba(163, 30, 30, 0.5);
+  }
   /** Selection Item Image */
   .selection-item__image {
     max-width: 100%;
@@ -119,3 +123,12 @@ html {
     display: block;
     color: #600;
   }
+
+
+
+.selection-items {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
