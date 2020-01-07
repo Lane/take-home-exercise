@@ -8,6 +8,7 @@ In this assignment you will build an interactive learning exercise where a stude
 # Instructions
 1. Fork this repository and create a new branch for your development work
 1. Create your implementation following the [Specification](#Specification) below
+1. Add instructions on how to run your implementation to the [Getting Started](#Getting-Started) section.
 1. In the [follow up questions](#Follow-Up-Questions) section below, respond inline to each of the questions.
 1. Commit your implementation and answers to your branch, then [create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) for review on the original repository.
 
@@ -15,7 +16,6 @@ In this assignment you will build an interactive learning exercise where a stude
 - Do not spend longer than one hour on your implementation, a perfect implementation is not required or expected. Please move on to the [follow up questions](#Follow-Up-Questions) after one hour.
 - You may use any libraries or frameworks of your choosing (e.g. React, Vue, Angular, Web Components, etc.)
 - The visual design of the components does not need to be exactly as seen in the prototype video. Feel free to use an existing component design framework (e.g. Material Design, Bootstrap, etc.) or design your own.
-
 
 
 # Specification
@@ -76,6 +76,10 @@ To evaluate a students answer, create a POST request where the body contains a J
   "missing": 3 
 }
 ```
+
+# Getting Started
+
+This is a placeholder for instructions on how to run your implementation.
 
 # Follow Up Questions
 
