@@ -25,13 +25,13 @@ In this assignment you will build an interactive learning exercise where a stude
 A sample HTML template (`./src/index.html`) and some base styles (`./src/css/main.css`) have been provided.
 
 Using these files as a starting point, you will build the following functionality:
-  - [ ] Load the species available for selection via GET request from the provided endpoint (See [Exercise Data](#Exercise-Data))
-  - [ ] Display all of the loaded species in a 3x3 grid
-  - [ ] When a user clicks on one of the species, toggle a visual "selected" state to indicate the species has been selected
-  - [ ] Enable the "Check Answer" button when one or more of the species have been selected.
-  - [ ] When the "Check Answer" button has been pressed, send a POST request with the selected items to the answer checking service (See [Answer Checking](#Answer-Checking))
-  - [ ] If the answer is incorrect, display a message indicating how many selections were incorrect and how many selections are missing.
-  - [ ] If the answer is correct, hide the "Check Answer" button, display a "Correct!" message, and do not allow the selected items to be modified.
+  - [x] Load the species available for selection via GET request from the provided endpoint (See [Exercise Data](#Exercise-Data))
+  - [x] Display all of the loaded species in a 3x3 grid
+  - [x] When a user clicks on one of the species, toggle a visual "selected" state to indicate the species has been selected
+  - [x] Enable the "Check Answer" button when one or more of the species have been selected.
+  - [x] When the "Check Answer" button has been pressed, send a POST request with the selected items to the answer checking service (See [Answer Checking](#Answer-Checking))
+  - [x] If the answer is incorrect, display a message indicating how many selections were incorrect and how many selections are missing.
+  - [x] If the answer is correct, hide the "Check Answer" button, display a "Correct!" message, and do not allow the selected items to be modified.
 
 
 ## Exercise Data
